@@ -234,3 +234,11 @@ reports/figures/*
 
 !reports/eda/.gitkeep
 !reports/figures/.gitkeep
+
+# Generated temporal split audit artifacts
+reports/splits/*
+!reports/splits/.gitkeep
+
+# Generated processed datasets
+data/processed/*
+!data/processed/.gitkeep
