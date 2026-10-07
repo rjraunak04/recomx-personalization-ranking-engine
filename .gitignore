@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# RecomX datasets
+data/raw/*.csv
+data/interim/*.parquet
+
+!data/raw/.gitkeep
+!data/raw/README.md
+!data/interim/.gitkeep
