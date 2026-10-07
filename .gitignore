@@ -224,3 +224,13 @@ data/interim/*.parquet
 !data/raw/.gitkeep
 !data/raw/README.md
 !data/interim/.gitkeep
+
+# Generated EDA artifacts
+reports/eda/
+
+# Generated RecomX analytical artifacts
+reports/eda/*
+reports/figures/*
+
+!reports/eda/.gitkeep
+!reports/figures/.gitkeep
