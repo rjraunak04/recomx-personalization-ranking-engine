@@ -242,3 +242,7 @@ reports/splits/*
 # Generated processed datasets
 data/processed/*
 !data/processed/.gitkeep
+
+# Generated reproducibility audit
+reports/reproducibility/*
+!reports/reproducibility/.gitkeep
