@@ -2,6 +2,9 @@
   name: hm_personalized_fashion_recommendations
   source: kaggle
   competition: h-and-m-personalized-fashion-recommendations
+  task: personalized_top_k_recommendation
+  feedback_type: implicit
+  interaction_type: purchase
 
 files:
   transactions: transactions_train.csv
@@ -12,3 +15,11 @@ paths:
   raw_dir: data/raw
   interim_dir: data/interim
   processed_dir: data/processed
+
+entities:
+  user_id: customer_id
+  item_id: article_id
+  timestamp: t_dat
+
+evaluation:
+  strategy: temporal
