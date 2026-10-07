@@ -1,0 +1,14 @@
+﻿dataset:
+  name: hm_personalized_fashion_recommendations
+  source: kaggle
+  competition: h-and-m-personalized-fashion-recommendations
+
+files:
+  transactions: transactions_train.csv
+  articles: articles.csv
+  customers: customers.csv
+
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
