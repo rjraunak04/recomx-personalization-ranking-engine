@@ -246,3 +246,6 @@ data/processed/*
 # Generated reproducibility audit
 reports/reproducibility/*
 !reports/reproducibility/.gitkeep
+# Generated Day-02 recommendation benchmark artifacts
+reports/baselines/*
+!reports/baselines/.gitkeep
