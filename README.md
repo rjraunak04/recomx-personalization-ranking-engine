@@ -54,3 +54,33 @@ Leakage-Safe Temporal Split
       |
       v
 Deterministic Reproducibility Audit
+## Day-02 — Recommendation Baselines and Offline Evaluation
+
+RecomX now includes a leakage-safe Top-K recommendation benchmark built on the
+MovieLens 25M temporal split.
+
+Implemented components:
+
+- explicit-feedback relevance policy (`rating >= 4.0`)
+- leakage-safe validation ground truth
+- warm/cold user cohorts
+- train-only popularity recommender
+- genre-aware personalized recommender
+- popularity fallback for cold users
+- seen-item filtering
+- Precision@K, Recall@K, NDCG@K, MAP@K and HitRate@K
+- catalogue and eligible-item coverage
+- popularity-bias and long-tail diagnostics
+- cold-item exposure analysis
+- strategy-level and cohort-level evaluation
+
+The Day-02 benchmark evaluates 17,847 users against 1,231,511 relevant
+validation interactions.
+
+At K=10, the popularity baseline achieved NDCG 0.294354 and HitRate 0.719897,
+outperforming the simple genre-aware baseline on ranking accuracy. The
+genre-aware model provided broader catalogue and long-tail exposure, creating
+a clear accuracy-diversity trade-off for later collaborative and hybrid
+models to improve.
+
+The locked test partition remains untouched.
