@@ -6,7 +6,7 @@ from recomx.serving.runtime import RuntimeSettings
 
 
 def _settings(tmp_path: Path, **overrides) -> RuntimeSettings:
-    paths = [tmp_path / name for name in ("model.npz", "features.parquet", "train.parquet", "movies.parquet")]
+    filenames = ("model.npz", "features.parquet", "train.parquet", "movies.parquet")\n    paths = [tmp_path / name for name in filenames]
     values = {
         "environment": "production",
         "host": "0.0.0.0",
@@ -30,7 +30,7 @@ def test_runtime_rejects_invalid_environment(tmp_path: Path) -> None:
 
 
 def test_runtime_rejects_invalid_port(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="port"):
+    with pytest.raises(ValueError, match="PORT"):
         _settings(tmp_path, port=70000).validate()
 
 
