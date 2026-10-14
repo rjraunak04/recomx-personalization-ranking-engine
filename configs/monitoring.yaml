@@ -1,0 +1,7 @@
+monitoring:
+  feature_missing_rate_warn: 0.01
+  standardized_mean_shift_warn: 3.0
+  model_score_mean_min: 0.05
+  model_score_mean_max: 0.95
+  cold_start_share_warn: 0.80
+  locked_test_access: false
