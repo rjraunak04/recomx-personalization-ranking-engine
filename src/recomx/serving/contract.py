@@ -1,5 +1,6 @@
 """Day-06 serving contract for personalized recommendations."""
 from __future__ import annotations
+
 from dataclasses import dataclass, field
 
 MAX_TOP_K = 20
