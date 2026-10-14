@@ -12,13 +12,17 @@ COPY pyproject.toml README.md ./
 COPY src ./src
 RUN pip install --no-cache-dir .
 
-COPY data/processed ./data/processed
-COPY data/interim ./data/interim
-COPY reports/ranking ./reports/ranking
+# Copy only artifacts required by the serving runtime. In particular, never
+# copy data/processed wholesale: that directory also contains the locked test.
+RUN mkdir -p data/processed data/interim reports/ranking/ml reports/ranking
+COPY data/processed/ratings_train.parquet ./data/processed/ratings_train.parquet
+COPY data/interim/movies.parquet ./data/interim/movies.parquet
+COPY reports/ranking/ml/model.npz ./reports/ranking/ml/model.npz
+COPY reports/ranking/validation_ranking_features.parquet ./reports/ranking/validation_ranking_features.parquet
 
 RUN useradd --create-home --uid 10001 recomx
 USER recomx
 
 EXPOSE 8000
 
-CMD ["uvicorn", "recomx.serving.production:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "recomx.serving.production:create_production_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]
