@@ -6,7 +6,13 @@ from recomx.serving.runtime import RuntimeSettings
 
 
 def _settings(tmp_path: Path, **overrides) -> RuntimeSettings:
-    filenames = ("model.npz", "features.parquet", "train.parquet", "movies.parquet")\n    paths = [tmp_path / name for name in filenames]
+    filenames = (
+        "model.npz",
+        "features.parquet",
+        "train.parquet",
+        "movies.parquet",
+    )
+    paths = [tmp_path / name for name in filenames]
     values = {
         "environment": "production",
         "host": "0.0.0.0",
@@ -36,7 +42,10 @@ def test_runtime_rejects_invalid_port(tmp_path: Path) -> None:
 
 def test_runtime_forbids_locked_test_reference(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="locked test"):
-        _settings(tmp_path, ranking_features_path=tmp_path / "locked_test.parquet").validate()
+        _settings(
+            tmp_path,
+            ranking_features_path=tmp_path / "locked_test.parquet",
+        ).validate()
 
 
 def test_readiness_reports_missing_artifacts_without_paths(tmp_path: Path) -> None:
