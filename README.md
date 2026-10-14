@@ -196,7 +196,7 @@ The collaborative improvement is deliberately described as **small**. Much of th
 
 Engineering trade-off: the full Item-KNN graph contains **2,432,856 edges** and took roughly **3 h 7 min** to build on the development machine, while the 64-factor SVD fit took roughly **13.34 s**. Expensive collaborative artifacts are therefore cached and reused.
 
-### Stage 4 — Hybrid Top-100 candidate retrieval
+### Stage 4 — Hybrid Top-100 Candidate Retrieval
 
 A production recommender normally separates **retrieval** from **ranking**. RecomX fuses four signals:
 
@@ -223,7 +223,7 @@ Final retrieval result:
 
 Recall@100 improved from the shallow-fusion result of **0.0969 → 0.2749 (~2.84×)**. Popularity remains a major contributor, especially for cold users; that limitation is retained rather than hidden.
 
-### Stage 5 — Learning-to-rank
+### Stage 5 — ML Learning-to-Rank Model
 
 The Top-100 candidate pool is transformed into a 12-feature ranking table using retrieval provenance plus train-history statistics.
 
@@ -247,7 +247,7 @@ A deterministic pointwise logistic ranker is fitted on a user-level development 
 
 NDCG@20 improves by about **0.00438 (~1.61% relative)**. HitRate@20 decreases slightly, so the correct conclusion is that the model improves deeper ordering quality on this development cohort—not that it wins every metric.
 
-### Stage 6 — Recommendation API
+### Stage 6 — FastAPI Serving
 
 The offline pipeline is converted into a typed serving boundary with FastAPI.
 
@@ -477,7 +477,7 @@ Repeatedly checking a final holdout turns it into another validation set. The pr
 
 ---
 
-## 12. Honest Limitations & Next Production Steps
+## 12. Scope & Honest Limitations
 
 RecomX is deliberately production-oriented, but it does not pretend to be a hyperscale recommender.
 
