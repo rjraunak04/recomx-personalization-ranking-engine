@@ -1,12 +1,12 @@
 from fastapi.testclient import TestClient
 
+from recomx.serving.api import create_app
 from recomx.serving.contract import (
     RecommendationItem,
     RecommendationRequest,
     RecommendationResponse,
 )
 from recomx.serving.metrics import ServingMetrics
-from recomx.serving.api import create_app
 
 
 class _Backend:
