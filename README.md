@@ -496,7 +496,7 @@ These are explicit boundaries for future work, not hidden gaps.
 
 ## 13. Project Status
 
-**Day 01–07 complete**
+
 
 ```text
 Data foundation
