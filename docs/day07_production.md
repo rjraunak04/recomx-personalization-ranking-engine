@@ -38,3 +38,10 @@ The container runs as a non-root user and starts `recomx.serving.production:app`
 GitHub Actions now runs the repository quality contract on Python 3.11 and 3.12 for feature pushes and pull requests: Ruff, bytecode compilation, diff hygiene, and the full test suite. A dependent container-contract job checks the non-root image contract and production Uvicorn entrypoint without requiring generated serving artifacts in CI. Workflow permissions are read-only and redundant runs are cancelled per ref.
 
 For local parity, `python scripts/run_quality_gates.py` executes the same core code-quality gates before a checkpoint is frozen. Generated MovieLens and ranking artifacts remain intentionally excluded from source control and are not fabricated in CI.
+
+
+## CP-07: Production smoke and repeated-request benchmark
+
+The production benchmark exercises the real serving backend with both a personalized user drawn from the available ranking-candidate artifact and a synthetic unseen user routed through the train-only popularity fallback. It then executes a deterministic 40-request mixed workload and reports success rate, mean/p95/max backend latency, and throughput.
+
+Latency numbers are environment-specific engineering measurements, not an SLA claim. The benchmark deliberately reuses existing serving artifacts, does not rebuild collaborative retrieval or retrain the ranker, and never reads the locked test partition.
