@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 from dataclasses import asdict
 from time import perf_counter
+from collections.abc import Callable
 from typing import Protocol
 
 from fastapi import FastAPI, HTTPException, Query
@@ -23,6 +24,7 @@ class RecommendationBackend(Protocol):
 def create_app(
     backend: RecommendationBackend,
     metrics: ServingMetrics | None = None,
+    readiness: Callable[[], dict[str, object]] | None = None,
 ) -> FastAPI:
     """Create an API app around an injected recommendation backend."""
     app = FastAPI(title="RecomX Recommendation API", version="1.0.0")
@@ -33,8 +35,10 @@ def create_app(
         return {"status": "ok"}
 
     @app.get("/ready")
-    def ready() -> dict[str, str]:
-        return {"status": "ready"}
+    def ready() -> dict[str, object]:
+        if readiness is None:
+            return {"status": "ready"}
+        return readiness()
 
     @app.get("/metrics")
     def metrics_snapshot() -> dict[str, int | float]:
