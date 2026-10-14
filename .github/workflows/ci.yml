@@ -59,5 +59,8 @@ jobs:
         run: |
           grep -q "FROM python:3.12-slim" Dockerfile
           grep -q "USER recomx" Dockerfile
-          grep -q "recomx.serving.production:app" Dockerfile
+          grep -q "recomx.serving.production:create_production_app" Dockerfile
+          grep -q -- "--factory" Dockerfile
+          ! grep -q "COPY data/processed ./" Dockerfile
+          ! grep -q "ratings_test_locked" Dockerfile
           grep -q "EXPOSE 8000" Dockerfile
