@@ -12,3 +12,8 @@ The locked test partition is forbidden from production-serving configuration. Da
 ## CP-02: Structured serving observability
 
 Recommendation requests now emit machine-readable JSON events with request outcome, latency, serving strategy, recommendation count, and safe error type. The event schema intentionally excludes user IDs and filesystem paths. Both successful and handled failure paths are instrumented at the API boundary so serving behavior can be aggregated later without coupling monitoring to ranking logic.
+
+
+## CP-03: Recommendation metrics monitoring
+
+The API now aggregates privacy-safe serving metrics in process: request volume, success/error rates, personalized versus cold-start mix, recommendation counts, and mean/max latency. Metrics are updated from the same structured serving events used by CP-02, avoiding duplicated instrumentation logic. A lightweight `/metrics` snapshot endpoint exposes aggregate values only; no user identifiers or filesystem paths are retained.
