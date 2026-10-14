@@ -24,3 +24,10 @@ The API now aggregates privacy-safe serving metrics in process: request volume, 
 RecomX now includes explicit serving-health checks for feature schema quality, missing-value rate, standardized feature-mean shift, model probability validity and score distribution, plus cold-start traffic share. Thresholds are documented in `configs/monitoring.yaml`. The checks return compact alert codes suitable for dashboards or alerting without retaining user-level data.
 
 These checks are monitoring primitives rather than a claim of statistically confirmed production drift: real drift conclusions require live serving windows and an approved reference window. The locked test partition remains excluded.
+
+
+## CP-05: Container and deployment readiness
+
+RecomX now has a concrete production backend instead of a benchmark-only API adapter. Startup validates required artifacts, known users route through the Day-05 ranker when serving candidates exist, unknown users and known users without precomputed candidates use the deterministic train-only popularity fallback, and `/ready` is wired to real artifact readiness.
+
+The container runs as a non-root user and starts `recomx.serving.production:app` with Uvicorn. Large generated artifacts remain outside Git; a deployable image therefore requires the approved local serving artifacts to be present in the Docker build context. The locked test partition is neither configured nor copied.
