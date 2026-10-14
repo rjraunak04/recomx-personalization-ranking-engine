@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from typing import Mapping, Sequence
 
 import numpy as np
 
@@ -17,12 +17,15 @@ class MonitoringThresholds:
     cold_start_share_warn: float = 0.80
 
 
+_DEFAULT_THRESHOLDS = MonitoringThresholds()
+
+
 def monitor_features(
     values: np.ndarray,
     feature_names: Sequence[str],
     reference_mean: np.ndarray,
     reference_scale: np.ndarray,
-    thresholds: MonitoringThresholds = MonitoringThresholds(),
+    thresholds: MonitoringThresholds = _DEFAULT_THRESHOLDS,
 ) -> dict[str, object]:
     matrix = np.asarray(values, dtype=float)
     mean = np.asarray(reference_mean, dtype=float)
@@ -60,7 +63,7 @@ def monitor_features(
 
 def monitor_model_scores(
     scores: np.ndarray,
-    thresholds: MonitoringThresholds = MonitoringThresholds(),
+    thresholds: MonitoringThresholds = _DEFAULT_THRESHOLDS,
 ) -> dict[str, object]:
     values = np.asarray(scores, dtype=float).reshape(-1)
     if values.size == 0:
@@ -86,7 +89,7 @@ def monitor_model_scores(
 
 def monitor_serving_mix(
     metrics: Mapping[str, int | float],
-    thresholds: MonitoringThresholds = MonitoringThresholds(),
+    thresholds: MonitoringThresholds = _DEFAULT_THRESHOLDS,
 ) -> dict[str, object]:
     cold_share = float(metrics.get("cold_start_share", 0.0))
     alerts = []
