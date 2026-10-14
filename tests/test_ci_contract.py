@@ -27,7 +27,10 @@ def test_container_contract_checks_production_entrypoint() -> None:
     workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
     assert "Container contract" in workflow
     assert "USER recomx" in workflow
-    assert "recomx.serving.production:app" in workflow
+    assert "recomx.serving.production:create_production_app" in workflow
+    assert '"--factory"' in workflow
+    assert '! grep -q "COPY data/processed ./" Dockerfile' in workflow
+    assert '! grep -q "ratings_test_locked" Dockerfile' in workflow
 
 
 def test_local_quality_runner_covers_same_core_gates() -> None:
