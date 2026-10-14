@@ -36,8 +36,10 @@ def create_app(backend: RecommendationBackend) -> FastAPI:
             request.validate()
             response = backend.recommend(request)
             response.validate()
-        except (ValueError, FileNotFoundError) as exc:
+        except ValueError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
+        except FileNotFoundError as exc:
+            raise HTTPException(status_code=503, detail="Serving artifact unavailable.") from exc
         return asdict(response)
 
     return app
