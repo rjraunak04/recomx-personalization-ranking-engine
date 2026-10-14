@@ -1,6 +1,12 @@
 from __future__ import annotations
+
 import pytest
-from recomx.serving.contract import RecommendationItem, RecommendationRequest, RecommendationResponse
+
+from recomx.serving.contract import (
+    RecommendationItem,
+    RecommendationRequest,
+    RecommendationResponse,
+)
 
 def test_default_request_is_valid() -> None:
     request = RecommendationRequest(user_id=42)
