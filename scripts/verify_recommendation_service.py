@@ -11,7 +11,7 @@ from recomx.serving.artifacts import load_ranking_artifact
 from recomx.serving.contract import RecommendationRequest
 from recomx.serving.service import recommend_known_user
 
-CANDIDATES = Path("reports/ranking/features.parquet")
+CANDIDATES = Path("reports/ranking/validation_ranking_features.parquet")
 MODEL = Path("reports/ranking/ml/model.npz")
 TRAIN = Path("data/processed/ratings_train.parquet")
 
