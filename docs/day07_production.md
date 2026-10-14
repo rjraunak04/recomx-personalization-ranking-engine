@@ -45,3 +45,10 @@ For local parity, `python scripts/run_quality_gates.py` executes the same core c
 The production benchmark exercises the real serving backend with both a personalized user drawn from the available ranking-candidate artifact and a synthetic unseen user routed through the train-only popularity fallback. It then executes a deterministic 40-request mixed workload and reports success rate, mean/p95/max backend latency, and throughput.
 
 Latency numbers are environment-specific engineering measurements, not an SLA claim. The benchmark deliberately reuses existing serving artifacts, does not rebuild collaborative retrieval or retrain the ranker, and never reads the locked test partition.
+
+
+## CP-08: Final repository polish and freeze
+
+Day-07 closes with a recruiter-facing README that connects the complete system from MovieLens ingestion through temporal evaluation, collaborative and hybrid retrieval, learning-to-rank, production serving, observability, monitoring, Docker and CI/CD. Reported benchmark numbers are measured results and the README explicitly separates engineering measurements from SLA claims.
+
+The final acceptance script verifies the production backend, artifact readiness, observability, monitoring, container contract, CI workflow and locked-test isolation. The repository is frozen only after this acceptance check and the full local quality gate both pass.
