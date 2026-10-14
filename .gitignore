@@ -253,3 +253,7 @@ reports/baselines/*
 # Generated Day-04 hybrid retrieval artifacts
 reports/hybrid/*
 !reports/hybrid/.gitkeep
+
+# Generated Day-05 ranking artifacts
+reports/ranking/*
+!reports/ranking/.gitkeep
