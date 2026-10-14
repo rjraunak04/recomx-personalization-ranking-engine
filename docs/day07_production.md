@@ -31,3 +31,10 @@ These checks are monitoring primitives rather than a claim of statistically conf
 RecomX now has a concrete production backend instead of a benchmark-only API adapter. Startup validates required artifacts, known users route through the Day-05 ranker when serving candidates exist, unknown users and known users without precomputed candidates use the deterministic train-only popularity fallback, and `/ready` is wired to real artifact readiness.
 
 The container runs as a non-root user and starts `recomx.serving.production:app` with Uvicorn. Large generated artifacts remain outside Git; a deployable image therefore requires the approved local serving artifacts to be present in the Docker build context. The locked test partition is neither configured nor copied.
+
+
+## CP-06: CI/CD and production quality gates
+
+GitHub Actions now runs the repository quality contract on Python 3.11 and 3.12 for feature pushes and pull requests: Ruff, bytecode compilation, diff hygiene, and the full test suite. A dependent container-contract job checks the non-root image contract and production Uvicorn entrypoint without requiring generated serving artifacts in CI. Workflow permissions are read-only and redundant runs are cancelled per ref.
+
+For local parity, `python scripts/run_quality_gates.py` executes the same core code-quality gates before a checkpoint is frozen. Generated MovieLens and ranking artifacts remain intentionally excluded from source control and are not fabricated in CI.
