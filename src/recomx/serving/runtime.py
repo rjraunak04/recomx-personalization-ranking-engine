@@ -26,10 +26,24 @@ class RuntimeSettings:
             environment=os.getenv("RECOMX_ENV", "development"),
             host=os.getenv("RECOMX_HOST", "0.0.0.0"),
             port=int(os.getenv("RECOMX_PORT", "8000")),
-            ranking_model_path=Path(\n                os.getenv("RECOMX_RANKING_MODEL", "reports/ranking/ml/model.npz")\n            ),
-            ranking_features_path=Path(\n                os.getenv(\n                    "RECOMX_RANKING_FEATURES",\n                    "reports/ranking/validation_ranking_features.parquet",\n                )\n            ),
-            train_ratings_path=Path(\n                os.getenv("RECOMX_TRAIN_RATINGS", "data/processed/ratings_train.parquet")\n            ),
-            movies_path=Path(os.getenv("RECOMX_MOVIES", "data/interim/movies.parquet")),
+            ranking_model_path=Path(
+                os.getenv("RECOMX_RANKING_MODEL", "reports/ranking/ml/model.npz")
+            ),
+            ranking_features_path=Path(
+                os.getenv(
+                    "RECOMX_RANKING_FEATURES",
+                    "reports/ranking/validation_ranking_features.parquet",
+                )
+            ),
+            train_ratings_path=Path(
+                os.getenv(
+                    "RECOMX_TRAIN_RATINGS",
+                    "data/processed/ratings_train.parquet",
+                )
+            ),
+            movies_path=Path(
+                os.getenv("RECOMX_MOVIES", "data/interim/movies.parquet")
+            ),
             locked_test_access=False,
         )
 
@@ -43,12 +57,17 @@ class RuntimeSettings:
         if self.locked_test_access:
             raise ValueError("Locked test access is forbidden in the serving runtime.")
         paths = self.required_artifacts()
-        if any("locked" in str(path).lower() and "test" in str(path).lower() for path in paths):
+        if any(
+            "locked" in str(path).lower() and "test" in str(path).lower()
+            for path in paths
+        ):
             raise ValueError("Serving runtime must not reference the locked test partition.")
         if require_artifacts:
             missing = [path.name for path in paths if not path.is_file()]
             if missing:
-                raise FileNotFoundError(f"Missing required serving artifacts: {sorted(missing)}")
+                raise FileNotFoundError(
+                    f"Missing required serving artifacts: {sorted(missing)}"
+                )
 
     def required_artifacts(self) -> tuple[Path, ...]:
         return (
@@ -60,7 +79,9 @@ class RuntimeSettings:
 
     def readiness(self) -> dict[str, object]:
         self.validate(require_artifacts=False)
-        missing = [path.name for path in self.required_artifacts() if not path.is_file()]
+        missing = [
+            path.name for path in self.required_artifacts() if not path.is_file()
+        ]
         return {
             "status": "ready" if not missing else "not_ready",
             "environment": self.environment,
