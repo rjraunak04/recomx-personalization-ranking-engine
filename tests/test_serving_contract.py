@@ -8,6 +8,7 @@ from recomx.serving.contract import (
     RecommendationResponse,
 )
 
+
 def test_default_request_is_valid() -> None:
     request = RecommendationRequest(user_id=42)
     request.validate()
