@@ -26,11 +26,19 @@ def main() -> None:
     )
     missing = [path.relative_to(ROOT).as_posix() for path in required_files if not path.exists()]
     readiness = settings.readiness()
+    dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+    forbidden_docker_tokens = ("ratings_test_locked", "COPY data/processed ./data/processed")
+    locked_test_used = any(token in dockerfile for token in forbidden_docker_tokens)
+    factory_entrypoint = (
+        "recomx.serving.production:create_production_app" in dockerfile
+        and "--factory" in dockerfile
+    )
     summary = {
         "artifacts_ready": readiness["artifacts_ready"],
         "ci_configured": (ROOT / ".github" / "workflows" / "ci.yml").exists(),
         "container_configured": (ROOT / "Dockerfile").exists(),
-        "locked_test_used": False,
+        "factory_entrypoint": factory_entrypoint,
+        "locked_test_used": locked_test_used,
         "missing_required_files": missing,
         "observability_configured": (ROOT / "src/recomx/serving/observability.py").exists(),
         "monitoring_configured": (ROOT / "src/recomx/monitoring/model_data.py").exists(),
@@ -42,6 +50,7 @@ def main() -> None:
         missing
         or not summary["artifacts_ready"]
         or summary["locked_test_used"]
+        or not summary["factory_entrypoint"]
         or not summary["ci_configured"]
         or not summary["container_configured"]
     ):
