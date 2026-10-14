@@ -112,9 +112,32 @@ def main() -> None:
         for key, value in summary.items():
             print(f"  {key}={value}")
     print("\nCOHORT METRICS")
-    display_columns = [\n        "model", "segment", "k", "users", "precision",\n        "recall", "ndcg", "map", "hit_rate",\n    ]\n    print(cohort_frame[display_columns].to_string(index=False))
+    display_columns = [
+        "model",
+        "segment",
+        "k",
+        "users",
+        "precision",
+        "recall",
+        "ndcg",
+        "map",
+        "hit_rate",
+    ]
+    print(cohort_frame[display_columns].to_string(index=False))
+
     print("\nSTRATEGY METRICS")
-    strategy_columns = [\n        "model", "strategy", "k", "users", "precision",\n        "recall", "ndcg", "map", "hit_rate",\n    ]\n    print(strategy_frame[strategy_columns].to_string(index=False))
+    strategy_columns = [
+        "model",
+        "strategy",
+        "k",
+        "users",
+        "precision",
+        "recall",
+        "ndcg",
+        "map",
+        "hit_rate",
+    ]
+    print(strategy_frame[strategy_columns].to_string(index=False))
     print(f"\noutput={OUTPUT}")
     print("DAY-03 CP-07 COLLABORATIVE DIAGNOSTICS: PASS")
 
