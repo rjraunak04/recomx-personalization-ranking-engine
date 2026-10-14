@@ -29,3 +29,18 @@ def test_readme_documents_full_pipeline_and_limitations() -> None:
         "locked test",
     ):
         assert required in readme
+
+
+def test_docker_uses_factory_and_excludes_locked_test() -> None:
+    dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+    assert "recomx.serving.production:create_production_app" in dockerfile
+    assert "--factory" in dockerfile
+    assert "COPY data/processed ./data/processed" not in dockerfile
+    assert "ratings_test_locked" not in dockerfile
+    for required in (
+        "data/processed/ratings_train.parquet",
+        "data/interim/movies.parquet",
+        "reports/ranking/ml/model.npz",
+        "reports/ranking/validation_ranking_features.parquet",
+    ):
+        assert required in dockerfile
