@@ -5,7 +5,7 @@ import pandas as pd
 from fastapi.testclient import TestClient
 
 from recomx.ranking.features import FEATURE_COLUMNS
-from recomx.serving.production import ProductionRecommendationBackend
+from recomx.serving.production import ProductionRecommendationBackend, create_production_app
 from recomx.serving.runtime import RuntimeSettings
 
 
