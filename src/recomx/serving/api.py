@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import logging
+from collections.abc import Callable
 from dataclasses import asdict
 from time import perf_counter
-from collections.abc import Callable
 from typing import Protocol
 
 from fastapi import FastAPI, HTTPException, Query
