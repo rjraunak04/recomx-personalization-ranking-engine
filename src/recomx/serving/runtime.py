@@ -21,14 +21,14 @@ class RuntimeSettings:
     locked_test_access: bool = False
 
     @classmethod
-    def from_env(cls) -> "RuntimeSettings":
+    def from_env(cls) -> RuntimeSettings:
         return cls(
             environment=os.getenv("RECOMX_ENV", "development"),
             host=os.getenv("RECOMX_HOST", "0.0.0.0"),
             port=int(os.getenv("RECOMX_PORT", "8000")),
-            ranking_model_path=Path(os.getenv("RECOMX_RANKING_MODEL", "reports/ranking/ml/model.npz")),
-            ranking_features_path=Path(os.getenv("RECOMX_RANKING_FEATURES", "reports/ranking/validation_ranking_features.parquet")),
-            train_ratings_path=Path(os.getenv("RECOMX_TRAIN_RATINGS", "data/processed/ratings_train.parquet")),
+            ranking_model_path=Path(\n                os.getenv("RECOMX_RANKING_MODEL", "reports/ranking/ml/model.npz")\n            ),
+            ranking_features_path=Path(\n                os.getenv(\n                    "RECOMX_RANKING_FEATURES",\n                    "reports/ranking/validation_ranking_features.parquet",\n                )\n            ),
+            train_ratings_path=Path(\n                os.getenv("RECOMX_TRAIN_RATINGS", "data/processed/ratings_train.parquet")\n            ),
             movies_path=Path(os.getenv("RECOMX_MOVIES", "data/interim/movies.parquet")),
             locked_test_access=False,
         )
