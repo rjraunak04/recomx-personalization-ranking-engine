@@ -1,0 +1,14 @@
+ranking:
+  task: personalized_top_k_ranking
+  candidate_source: day04_hybrid_top100
+  training_partition: train
+  selection_partition: validation
+  locked_test_access: false
+  relevance_threshold: 4.0
+  candidate_budget: 100
+  final_top_k: 20
+  filter_all_train_seen_items: true
+  deterministic_tie_break: movieId
+  evaluation:
+    cutoffs: [5, 10, 20]
+    metrics: [precision, recall, ndcg, map, hit_rate]
