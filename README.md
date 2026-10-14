@@ -10,7 +10,7 @@ RecomX is developed incrementally from a validated recommendation-data foundatio
 
 **Day 02 — Recommendation Baselines and Offline Evaluation: Complete**
 
-**Day 03 — Collaborative Filtering and Latent-Factor Retrieval: In Progress**
+**Day 03 — Collaborative Filtering and Latent-Factor Retrieval: Complete**
 
 ## Dataset
 
@@ -64,3 +64,11 @@ Current contract:
 - evaluate at K = 5, 10, and 20
 
 The sparse interaction layer is the shared foundation for Item-KNN and latent-factor retrieval.
+
+Implemented Day-03 components include sparse positive-interaction modeling, cosine Item-KNN, 64-factor truncated SVD, train-seen filtering, popularity fallback, collaborative candidate generation, frozen-protocol offline evaluation, and warm/cold plus strategy-level diagnostics.
+
+At K=20, Item-KNN achieved NDCG 0.262566 and HitRate 0.778450, narrowly outperforming latent SVD (NDCG 0.262225) and the popularity baseline (NDCG 0.261514). The gain is intentionally reported as small because most evaluation users are routed through popularity fallback.
+
+The strategy-level analysis also shows that SVD performs strongly among users actually served by its collaborative route, while both collaborative systems remain concentrated on popular training items. These findings motivate a later hybrid retrieval and ranking stage rather than overstating Day-03 accuracy gains.
+
+See `docs/day03_collaborative_filtering_results.md` for the full benchmark and engineering interpretation.
