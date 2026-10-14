@@ -1,0 +1,44 @@
+collaborative_filtering:
+  task: personalized_top_k
+  training_partition: train
+  selection_partition: validation
+  locked_test_access: false
+
+  feedback:
+    type: implicit_positive
+    minimum_rating: 4.0
+    value: 1.0
+
+  candidate_policy:
+    filter_all_train_seen_items: true
+    max_recommendations: 20
+    cold_user_fallback: popularity
+
+  sparse_matrix:
+    format: csr
+    dtype: float32
+    deterministic_mappings: true
+    dense_matrix_forbidden: true
+
+  item_knn:
+    metric: cosine
+    neighbors: 100
+    minimum_similarity: 0.0
+
+  latent_factor:
+    algorithm: truncated_svd
+    factors: 64
+    random_state: 42
+
+  evaluation:
+    reuse_day02_ground_truth: true
+    cutoffs:
+      - 5
+      - 10
+      - 20
+    metrics:
+      - precision
+      - recall
+      - ndcg
+      - map
+      - hit_rate
