@@ -72,3 +72,19 @@ At K=20, Item-KNN achieved NDCG 0.262566 and HitRate 0.778450, narrowly outperfo
 The strategy-level analysis also shows that SVD performs strongly among users actually served by its collaborative route, while both collaborative systems remain concentrated on popular training items. These findings motivate a later hybrid retrieval and ranking stage rather than overstating Day-03 accuracy gains.
 
 See `docs/day03_collaborative_filtering_results.md` for the full benchmark and engineering interpretation.
+
+
+## Day-04 Hybrid Candidate Retrieval
+
+Day-04 adds a retrieval layer designed for downstream ranking rather than
+treating each recommender's Top-K output as the final architecture.
+
+The hybrid layer combines Item-KNN, latent SVD, genre/content and popularity
+sources with deterministic reciprocal-rank fusion, removes train-seen items,
+deduplicates candidates, preserves source provenance and targets up to 100
+candidates per user. Candidate Recall@20/50/100 and source contribution are
+evaluated on the frozen validation ground truth while the locked test remains
+untouched.
+
+This creates the interface required for a later learning-to-rank stage:
+retrieval produces a broad candidate pool; ranking decides the final order.
