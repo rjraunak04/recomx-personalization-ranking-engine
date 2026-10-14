@@ -1,0 +1,19 @@
+hybrid_retrieval:
+  task: candidate_retrieval
+  training_partition: train
+  selection_partition: validation
+  locked_test_access: false
+  candidate_budget: 100
+  filter_all_train_seen_items: true
+  sources:
+    item_knn: 40
+    latent_svd: 40
+    content: 40
+    popularity: 40
+  fusion:
+    method: reciprocal_rank_fusion
+    rrf_k: 60
+  cold_user_policy: popularity_content
+  evaluation:
+    cutoffs: [20, 50, 100]
+    primary_metric: candidate_recall
