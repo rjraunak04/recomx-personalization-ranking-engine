@@ -70,5 +70,3 @@ def create_production_app(settings: RuntimeSettings | None = None):
     app.state.runtime_settings = runtime
     return app
 
-
-app = create_production_app()
