@@ -17,3 +17,10 @@ Recommendation requests now emit machine-readable JSON events with request outco
 ## CP-03: Recommendation metrics monitoring
 
 The API now aggregates privacy-safe serving metrics in process: request volume, success/error rates, personalized versus cold-start mix, recommendation counts, and mean/max latency. Metrics are updated from the same structured serving events used by CP-02, avoiding duplicated instrumentation logic. A lightweight `/metrics` snapshot endpoint exposes aggregate values only; no user identifiers or filesystem paths are retained.
+
+
+## CP-04: Model and data monitoring
+
+RecomX now includes explicit serving-health checks for feature schema quality, missing-value rate, standardized feature-mean shift, model probability validity and score distribution, plus cold-start traffic share. Thresholds are documented in `configs/monitoring.yaml`. The checks return compact alert codes suitable for dashboards or alerting without retaining user-level data.
+
+These checks are monitoring primitives rather than a claim of statistically confirmed production drift: real drift conclusions require live serving windows and an approved reference window. The locked test partition remains excluded.
