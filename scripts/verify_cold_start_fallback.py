@@ -24,12 +24,7 @@ def main() -> None:
         raise ValueError("Verification user unexpectedly exists in training data.")
 
     model = PopularityModel.fit(train)
-    popularity = pd.DataFrame(
-        {
-            "movieId": model.item_ids,
-            "popularity_score": model.scores,
-        }
-    )
+    popularity = model.item_scores.loc[:, ["movieId", "popularity_score"]].copy()
     response = recommend_cold_user(
         RecommendationRequest(user_id=COLD_USER_ID, top_k=20),
         popularity,
