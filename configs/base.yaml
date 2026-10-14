@@ -1,0 +1,14 @@
+﻿project:
+  name: recomx
+  version: "0.1.0"
+  random_seed: 42
+
+paths:
+  raw_data: data/raw
+  interim_data: data/interim
+  processed_data: data/processed
+  reports: reports
+  figures: reports/figures
+
+logging:
+  level: INFO

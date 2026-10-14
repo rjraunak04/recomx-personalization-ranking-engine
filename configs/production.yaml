@@ -1,0 +1,10 @@
+runtime:
+  environment: production
+  host: 0.0.0.0
+  port: 8000
+  ranking_model_path: reports/ranking/ml/model.npz
+  ranking_features_path: reports/ranking/validation_ranking_features.parquet
+  train_ratings_path: data/processed/ratings_train.parquet
+  movies_path: data/interim/movies.parquet
+  locked_test_access: false
+  readiness_requires_artifacts: true

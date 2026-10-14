@@ -1,0 +1,29 @@
+evaluation:
+  task: personalized_top_k
+
+  partitions:
+    training: train
+    model_selection: validation
+    final_evaluation: locked_test
+
+  temporal:
+    chronological: true
+    allow_future_information: false
+
+  candidate_policy:
+    filter_seen_train_items: true
+
+  relevance:
+    minimum_rating: 4.0
+
+  ranking:
+    top_k:
+      - 5
+      - 10
+      - 20
+
+  locked_test:
+    use_for_model_selection: false
+    use_for_hyperparameter_tuning: false
+    use_for_threshold_selection: false
+    use_for_final_evaluation: true
