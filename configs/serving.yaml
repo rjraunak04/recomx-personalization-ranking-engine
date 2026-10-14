@@ -1,0 +1,9 @@
+serving:
+  api_version: v1
+  default_top_k: 20
+  maximum_top_k: 20
+  known_user_strategy: personalized
+  cold_user_strategy: cold_start_popularity
+  deterministic_tie_break: movieId
+  filter_seen_items: true
+  locked_test_access: false
