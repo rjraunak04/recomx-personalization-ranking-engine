@@ -50,7 +50,7 @@ def add_ranking_features(
 
     for source in SOURCE_NAMES:
         frame[f"source_{source}"] = (
-            frame["sources"].str.split("|").apply(lambda values: source in values).astype("int8")
+            frame["sources"].str.split("|").apply(lambda values, source=source: source in values).astype("int8")
         )
 
     return frame
