@@ -81,8 +81,6 @@ def test_known_user_without_candidates_falls_back(tmp_path: Path) -> None:
 
 def test_readiness_callable_reports_real_artifacts(tmp_path: Path) -> None:
     settings = _write_artifacts(tmp_path)
-    from recomx.serving.production import create_production_app
-
     client = TestClient(create_production_app(settings))
     response = client.get("/ready")
     assert response.status_code == 200
