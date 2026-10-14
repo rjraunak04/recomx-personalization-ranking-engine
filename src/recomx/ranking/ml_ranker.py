@@ -22,7 +22,7 @@ class LogisticRanker:
     scale_: np.ndarray | None = None
     bias_: float = 0.0
 
-    def fit(self, frame: pd.DataFrame) -> "LogisticRanker":
+    def fit(self, frame: pd.DataFrame) -> LogisticRanker:
         x = frame.loc[:, FEATURE_COLUMNS].to_numpy(dtype=np.float64)
         y = frame["label"].to_numpy(dtype=np.float64)
         if len(np.unique(y)) < 2:
