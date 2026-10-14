@@ -249,3 +249,7 @@ reports/reproducibility/*
 # Generated Day-02 recommendation benchmark artifacts
 reports/baselines/*
 !reports/baselines/.gitkeep
+
+# Generated Day-04 hybrid retrieval artifacts
+reports/hybrid/*
+!reports/hybrid/.gitkeep
