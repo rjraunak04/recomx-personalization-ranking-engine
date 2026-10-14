@@ -30,7 +30,7 @@ These checks are monitoring primitives rather than a claim of statistically conf
 
 RecomX now has a concrete production backend instead of a benchmark-only API adapter. Startup validates required artifacts, known users route through the Day-05 ranker when serving candidates exist, unknown users and known users without precomputed candidates use the deterministic train-only popularity fallback, and `/ready` is wired to real artifact readiness.
 
-The container runs as a non-root user and starts `recomx.serving.production:app` with Uvicorn. Large generated artifacts remain outside Git; a deployable image therefore requires the approved local serving artifacts to be present in the Docker build context. The locked test partition is neither configured nor copied.
+The container runs as a non-root user and starts the `recomx.serving.production:create_production_app` application factory with Uvicorn `--factory`. Large generated artifacts remain outside Git; a deployable image therefore requires the approved local serving artifacts to be present in the Docker build context. The image copies only the four approved serving artifacts (training ratings, movie metadata, ranking model, and ranking features); the locked test partition is neither configured nor copied.
 
 
 ## CP-06: CI/CD and production quality gates
